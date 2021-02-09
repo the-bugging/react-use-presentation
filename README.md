@@ -8,6 +8,8 @@
 
 [Preview here!](https://codesandbox.io/s/react-use-presentation-1c2du)
 
+[Preview with background video here!](https://codesandbox.io/s/react-use-presentation-with-bg-d7f7j)
+
 ---
 
 ## Table of Contents
@@ -22,7 +24,9 @@
 
 ## Running example
 
-![Example](./assets/readme.gif)
+| Plain                           | Video BG                           |
+| ------------------------------- | ---------------------------------- |
+| ![Example](./assets/readme.gif) | ![Example](./assets/readme-bg.gif) |
 
 ---
 
@@ -57,7 +61,7 @@ const myFramesArray = [
 - To initialize a Presentation component:
 
 ```tsx
-import * as react from 'react';\
+import * as react from 'react';
 import usePresentation from 'react-use-presentation';
 
 export default function App() {
@@ -72,7 +76,7 @@ export default function App() {
 - To initialize a __delayed__ (in milliseconds) Presentation component:
 
 ```tsx
-import * as react from 'react';\
+import * as react from 'react';
 import usePresentation from 'react-use-presentation';
 
 export default function App() {
@@ -87,7 +91,7 @@ export default function App() {
 - To initialize a __delayed__ (in milliseconds) and also in __loop__ Presentation component:
 
 ```tsx
-import * as react from 'react';\
+import * as react from 'react';
 import usePresentation from 'react-use-presentation';
 
 export default function App() {
@@ -102,7 +106,7 @@ export default function App() {
 - To initialize multiple separated presentations:
 
 ```tsx
-import * as react from 'react';\
+import * as react from 'react';
 import usePresentation from 'react-use-presentation';
 
 export default function App() {
