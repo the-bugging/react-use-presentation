@@ -6,9 +6,6 @@
 
 [![NPM](https://img.shields.io/npm/v/react-use-presentation.svg)](https://www.npmjs.com/package/react-use-presentation)
 
-[Preview here!](https://codesandbox.io/s/react-use-presentation-1c2du)
-
-[Preview with background video here!](https://codesandbox.io/s/react-use-presentation-with-bg-d7f7j)
 
 ---
 
@@ -27,6 +24,7 @@
 | Plain                           | Video BG                           |
 | ------------------------------- | ---------------------------------- |
 | ![Example](./assets/readme.gif) | ![Example](./assets/readme-bg.gif) |
+| [Preview!](https://codesandbox.io/s/react-use-presentation-1c2du) | [Preview with BG video!](https://codesandbox.io/s/react-use-presentation-with-bg-d7f7j) | 
 
 ---
 
