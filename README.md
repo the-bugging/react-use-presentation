@@ -43,7 +43,7 @@ npm install --save react-use-presentation
 - Set up your presentation array with each object acting as a movie frame. See the example and contract below:
 
 ```tsx
-const myFramesArray = [
+export const myFramesArray = [
   {
     component: <div>First Frame with 1 second duration</div>,
     time: 1000
@@ -63,9 +63,10 @@ const myFramesArray = [
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
+import { myFramesArray1 } from './myFramesArray'
 
 export default function App() {
-  const Presentation = usePresentation({ framesOptions: myFramesArray1 });
+  const [Presentation] = usePresentation({ framesOptions: myFramesArray1 });
 
   return (
     <Presentation />
@@ -78,9 +79,13 @@ export default function App() {
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
+import { myFramesArray2 } from './myFramesArray'
 
 export default function App() {
-  const DelayedPresentation = usePresentation({ framesOptions: myFramesArray2, startDelay: 1000 });
+  const [DelayedPresentation] = usePresentation({
+    framesOptions: myFramesArray2,
+    startDelay: 1000
+  });
 
   return (
     <DelayedPresentation />
@@ -93,9 +98,14 @@ export default function App() {
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
+import { myFramesArray3 } from './myFramesArray'
 
 export default function App() {
-  const DelayedAndLoopedPresentation = usePresentation({ framesOptions: myFramesArray3, startDelay: 1000, isLoop: true });
+  const [DelayedAndLoopedPresentation] = usePresentation({
+    framesOptions: myFramesArray3,
+    startDelay: 1000,
+    isLoop: true
+  });
 
   return (
     <DelayedAndLoopedPresentation />
@@ -103,19 +113,26 @@ export default function App() {
 }
 ```
 
-- To initialize multiple separated presentations:
+- To initialize multiple separated presentations and with its current frame and length:
 
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
 
 export default function App() {
-  const Presentation = usePresentation({ framesOptions: myFramesArray1 });
-  const DelayedPresentation = usePresentation({ framesOptions: myFramesArray2, startDelay: 1000 });
-  const DelayedAndLoopedPresentation = usePresentation({ framesOptions: myFramesArray3, startDelay: 1000, isLoop: true });
+  const [Presentation] = usePresentation({ framesOptions: myFramesArray1 });
+  const [DelayedPresentation] = usePresentation({ framesOptions: myFramesArray2, startDelay: 1000 });
+  const [DelayedAndLoopedPresentation, currentLoopFrame, loopFramesLength] = usePresentation({ framesOptions: myFramesArray3, startDelay: 1000, isLoop: true });
 
   return (
-    <DelayedAndLoopedPresentation />
+    <>
+      <Presentation />
+      <DelayedPresentation />
+      <div>
+        <p>Current frame: {currentLoopFrame}/{loopFramesLength}</p>
+        <DelayedAndLoopedPresentation />
+      </div>
+    </>
   )
 }
 ```
@@ -143,9 +160,17 @@ usePresentation(TUsePresentation);
 
 `usePresentation()` returns:
 
-- *Presentation*: Component<{}, {}, any> | null
+- An array with 3 positions, described below:
 
-> The *Presentation* component name is purely arbitrary i.e. *MyLittleComponentPresentation* will do just fine.
+  1. The very animation component;
+  2. The current position of the frame (1 based);
+  3. The total quantity of frames;
+
+> As the return is an array you may name each array position in an arbitrary way, e.g.:
+
+```tsx
+const [MyLittleComponent, currentFrameLittle, totalLengthLittle] = usePresentation();
+```
 
 ---
 
