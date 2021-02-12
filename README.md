@@ -2,10 +2,9 @@
 
 # react-use-presentation
 
-> Create pure HTML (React enriched if you will) presentations.
+> Create pure HTML (React enriched if you will) presentations with a provided array of components and their time durations. The library will do the rest triggering a re-render per array item.
 
 [![NPM](https://img.shields.io/npm/v/react-use-presentation.svg)](https://www.npmjs.com/package/react-use-presentation)
-
 
 ---
 
@@ -52,7 +51,8 @@ export const myFramesArray = [
   },
   {
     component: <div>Last Frame without duration</div>,
-  }
+  },
+  ...
 ]
 ```
 
@@ -116,11 +116,19 @@ export default function App() {
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
+import { myFramesArray1, myFramesArray2, myFramesArray3 } from './myFramesArray';
 
 export default function App() {
   const [Presentation] = usePresentation({ framesOptions: myFramesArray1 });
-  const [DelayedPresentation] = usePresentation({ framesOptions: myFramesArray2, startDelay: 1000 });
-  const [DelayedAndLoopedPresentation, currentLoopFrame, loopFramesLength] = usePresentation({ framesOptions: myFramesArray3, startDelay: 1000, isLoop: true });
+  const [DelayedPresentation] = usePresentation({
+    framesOptions: myFramesArray2,
+    startDelay: 1000
+  });
+  const [DelayedAndLoopedPresentation, currentLoopFrame, loopFramesLength] = usePresentation({
+    framesOptions: myFramesArray3,
+    startDelay: 1000,
+    isLoop: true
+  });
 
   return (
     <>
