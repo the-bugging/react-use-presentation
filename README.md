@@ -143,6 +143,26 @@ export default function App() {
 }
 ```
 
+- You can also render elements as children:
+
+```tsx
+import * as react from 'react';
+import usePresentation from 'react-use-presentation';
+import { myFramesArray1 } from './myFramesArray';
+
+export default function App() {
+  const [PresentationWithChildren, currentFrame, framesLength] = usePresentation({
+    framesOptions: myFramesArray1
+  });
+
+  return (
+    <PresentationWithChildren>
+      <p>Current frame: {currentFrame}/{framesLength}</p>
+    </PresentationWithChildren>
+  )
+}
+```
+
 ---
 
 ## Documentation

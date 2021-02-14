@@ -1,5 +1,7 @@
 import {
+  cloneElement,
   Component,
+  ReactElement,
   useCallback,
   useEffect,
   useMemo,
@@ -8,12 +10,12 @@ import {
 } from 'react';
 
 type TFrameOptions = {
-  component: Component | null;
+  component: ReactElement | null;
   time?: number;
 };
 
 type TFrameOptionsWithPosition = {
-  component: Component | null;
+  component: ReactElement | null;
   time?: number;
   currentFrame: number;
 };
@@ -70,9 +72,20 @@ function usePresentation({
     setMotion();
   }, [setMotion]);
 
-  const Animation = useCallback(() => {
-    return CurrentFrameOptions?.component || null;
-  }, [CurrentFrameOptions]);
+  const Animation = useCallback(
+    ({ children }) => {
+      const currentComponent = CurrentFrameOptions?.component || null;
+
+      if (children) {
+        return currentComponent
+          ? cloneElement(currentComponent, undefined, children)
+          : null;
+      }
+
+      return currentComponent;
+    },
+    [CurrentFrameOptions]
+  );
 
   return useMemo(() => {
     const { currentFrame } = CurrentFrameOptions ?? { currentFrame: 0 };
