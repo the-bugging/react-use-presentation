@@ -20,10 +20,10 @@
 
 ## Running example
 
-| Plain                           | Video BG                           |
-| ------------------------------- | ---------------------------------- |
-| ![Example](./assets/readme.gif) | ![Example](./assets/readme-bg.gif) |
-| [Preview!](https://codesandbox.io/s/react-use-presentation-1c2du) | [Preview with BG video!](https://codesandbox.io/s/react-use-presentation-with-bg-d7f7j) | 
+| Plain                                                             | Video BG                                                                                |
+| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| ![Example](./assets/readme.gif)                                   | ![Example](./assets/readme-bg.gif)                                                      |
+| [Preview!](https://codesandbox.io/s/react-use-presentation-1c2du) | [Preview with BG video!](https://codesandbox.io/s/react-use-presentation-with-bg-d7f7j) |
 
 ---
 
@@ -61,53 +61,52 @@ export const myFramesArray = [
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
-import { myFramesArray1 } from './myFramesArray'
+import { myFramesArray1 } from './myFramesArray';
 
 export default function App() {
-  const [Presentation] = usePresentation({ framesOptions: myFramesArray1 });
+  const [Presentation] = usePresentation({
+    framesOptions: myFramesArray1,
+    startTrigger: false,
+  });
 
-  return (
-    <Presentation />
-  )
+  return <Presentation />;
 }
 ```
 
-- To initialize a __delayed__ (in milliseconds) Presentation component:
+- To initialize a **delayed** (in milliseconds) Presentation component:
 
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
-import { myFramesArray2 } from './myFramesArray'
+import { myFramesArray2 } from './myFramesArray';
 
 export default function App() {
   const [DelayedPresentation] = usePresentation({
     framesOptions: myFramesArray2,
-    startDelay: 1000
+    startTrigger: true,
+    startDelay: 1000,
   });
 
-  return (
-    <DelayedPresentation />
-  )
+  return <DelayedPresentation />;
 }
 ```
 
-- To initialize a __delayed__ (in milliseconds) and also in __loop__ Presentation component:
+- To initialize a **delayed** (in milliseconds) and also in **loop** Presentation component:
 
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
-import { myFramesArray3 } from './myFramesArray'
+import { myFramesArray3 } from './myFramesArray';
 
 export default function App() {
   const [DelayedAndLoopedPresentation] = usePresentation({
     framesOptions: myFramesArray3,
+    startTrigger: true,
     startDelay: 1000,
-    isLoop: true
+    isLoop: true,
   });
 
-  return (
-    <DelayedAndLoopedPresentation />
-  )
+  return <DelayedAndLoopedPresentation />;
 }
 ```
 
@@ -116,18 +115,31 @@ export default function App() {
 ```tsx
 import * as react from 'react';
 import usePresentation from 'react-use-presentation';
-import { myFramesArray1, myFramesArray2, myFramesArray3 } from './myFramesArray';
+import {
+  myFramesArray1,
+  myFramesArray2,
+  myFramesArray3,
+} from './myFramesArray';
 
 export default function App() {
-  const [Presentation] = usePresentation({ framesOptions: myFramesArray1 });
+  const [Presentation] = usePresentation({
+    framesOptions: myFramesArray1,
+    startTrigger: false,
+  });
   const [DelayedPresentation] = usePresentation({
     framesOptions: myFramesArray2,
-    startDelay: 1000
-  });
-  const [DelayedAndLoopedPresentation, currentLoopFrame, loopFramesLength] = usePresentation({
-    framesOptions: myFramesArray3,
+    startTrigger: true,
     startDelay: 1000,
-    isLoop: true
+  });
+  const [
+    DelayedAndLoopedPresentation,
+    currentLoopFrame,
+    loopFramesLength,
+  ] = usePresentation({
+    framesOptions: myFramesArray3,
+    startTrigger: true,
+    startDelay: 1000,
+    isLoop: true,
   });
 
   return (
@@ -135,15 +147,17 @@ export default function App() {
       <Presentation />
       <DelayedPresentation />
       <div>
-        <p>Current frame: {currentLoopFrame}/{loopFramesLength}</p>
+        <p>
+          Current frame: {currentLoopFrame}/{loopFramesLength}
+        </p>
         <DelayedAndLoopedPresentation />
       </div>
     </>
-  )
+  );
 }
 ```
 
-- You can also render elements as children:
+- You can also render elements as children (note that the component passed via array must support children):
 
 ```tsx
 import * as react from 'react';
@@ -151,15 +165,48 @@ import usePresentation from 'react-use-presentation';
 import { myFramesArray1 } from './myFramesArray';
 
 export default function App() {
-  const [PresentationWithChildren, currentFrame, framesLength] = usePresentation({
-    framesOptions: myFramesArray1
+  const [
+    PresentationWithChildren,
+    currentFrame,
+    framesLength,
+  ] = usePresentation({
+    framesOptions: myFramesArray1,
+    startTrigger: true,
   });
 
   return (
     <PresentationWithChildren>
-      <p>Current frame: {currentFrame}/{framesLength}</p>
+      <p>
+        Current frame: {currentFrame}/{framesLength}
+      </p>
     </PresentationWithChildren>
-  )
+  );
+}
+```
+
+- You can control when to start the presentation using `startTrigger` as a control. You can also specify a callback to when it finishes:
+
+```tsx
+import * as react from 'react';
+import usePresentation from 'react-use-presentation';
+import { myFramesArray1 } from './myFramesArray';
+
+export default function App() {
+  const [startTrigger, setStartTrigger] = React.useState(false);
+  const [PresentationTriggered] = usePresentation({
+    framesOptions: myFramesArray1,
+    startTrigger,
+    callback: () => setStartTrigger(false),
+  });
+
+  return (
+    <>
+      <button type="button" onClick={() => setStartTrigger(true)}>
+        Click to start presenting!
+      </button>
+      <PresentationTriggered />
+    </>
+  );
 }
 ```
 
@@ -171,15 +218,16 @@ export default function App() {
 
 ```tsx
 type TFrameOptions = {
-  component: Component | null,
-  time?: number
-}
+  component: Component | null;
+  time?: number;
+};
 
 type TUsePresentation = {
-  framesOptions: Array<TFrameOptions>,
-  startDelay?: number,
-  isLoop?: boolean
-}
+  framesOptions: TFrameOptions[];
+  startTrigger: boolean;
+  startDelay?: number;
+  isLoop?: boolean;
+};
 
 usePresentation(TUsePresentation);
 ```
@@ -195,7 +243,11 @@ usePresentation(TUsePresentation);
 > As the return is an array you may name each array position in an arbitrary way, e.g.:
 
 ```tsx
-const [MyLittleComponent, currentFrameLittle, totalLengthLittle] = usePresentation();
+const [
+  MyLittleComponent,
+  currentFrameLittle,
+  totalLengthLittle,
+] = usePresentation();
 ```
 
 ---

@@ -22,26 +22,31 @@ type TFrameOptionsWithPosition = {
 
 type TUsePresentation = {
   framesOptions: TFrameOptions[];
+  startTrigger: boolean;
   startDelay?: number;
   isLoop?: boolean;
+  callback?: () => void;
 };
 
 function usePresentation({
   framesOptions,
+  startTrigger = false,
   startDelay = undefined,
   isLoop = false,
+  callback = undefined,
 }: TUsePresentation): (number | Component)[] {
   const [
     CurrentFrameOptions,
     setCurrentFrameOptions,
   ] = useState<TFrameOptionsWithPosition | null>(null);
-  const framesQuantity = framesOptions.length || 0;
+  const framesQuantity = framesOptions?.length || 0;
   const framesRef = useRef(framesOptions);
+  const callbackRef = useRef(callback);
 
   const setFrameWithAwait = useCallback(
     async (framesArray: Array<TFrameOptions>) => {
       const [firstFrame, ...otherFrames] = framesArray;
-      const currentFrame = framesRef.current.indexOf(firstFrame) + 1;
+      const currentFrame = framesRef.current?.indexOf(firstFrame) + 1;
 
       setCurrentFrameOptions({ ...firstFrame, currentFrame });
 
@@ -49,6 +54,10 @@ function usePresentation({
 
       if (otherFrames.length) {
         await setFrameWithAwait(otherFrames);
+      }
+
+      if (callbackRef.current) {
+        callbackRef.current();
       }
     },
     []
@@ -69,8 +78,8 @@ function usePresentation({
   }, [startDelay, isLoop, setFrameWithAwait]);
 
   useEffect(() => {
-    setMotion();
-  }, [setMotion]);
+    if (framesQuantity > 0 && startTrigger) setMotion();
+  }, [framesQuantity, startTrigger, setMotion]);
 
   const Animation = useCallback(
     ({ children }) => {
