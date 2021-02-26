@@ -41,7 +41,11 @@ function usePresentation({
   ] = useState<TFrameOptionsWithPosition | null>(null);
   const framesQuantity = framesOptions?.length || 0;
   const framesRef = useRef(framesOptions);
-  const callbackRef = useRef(callback);
+  const callbackCb = useCallback(() => {
+    if (callback && typeof callback === 'function') {
+      callback();
+    }
+  }, [callback]);
 
   const setFrameWithAwait = useCallback(
     async (framesArray: Array<TFrameOptions>) => {
@@ -56,11 +60,11 @@ function usePresentation({
         await setFrameWithAwait(otherFrames);
       }
 
-      if (callbackRef.current) {
-        callbackRef.current();
+      if (callback) {
+        callbackCb();
       }
     },
-    []
+    [callback, callbackCb]
   );
 
   const setMotion = useCallback(async () => {
