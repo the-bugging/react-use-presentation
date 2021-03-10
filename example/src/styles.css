@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #333;
+}
+
+.image-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.content {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  bottom: 0;
+  background: rgba(78, 17, 17, 0.3);
+  color: #e3e3e3;
+  width: 100%;
+  min-height: 200px;
+  height: auto;
+  padding: 20px;
+  user-select: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 1px -1px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px -1px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px -1px 5px 0px rgba(0, 0, 0, 0.75);
+  text-shadow: 1px 1px 0px #eee, 5px 5px 0px #707070;
+  overflow: hidden;
+}
