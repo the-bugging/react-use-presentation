@@ -14,6 +14,7 @@
 - [Install](#install)
 - [Usage](#usage)
 - [Documentation](#documentation)
+- [Contributors](#contributors)
 - [License](#license)
 
 ---
@@ -24,6 +25,8 @@
 | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | ![Example](./assets/readme.gif)                                   | ![Example](./assets/readme-bg.gif)                                                      |
 | [Preview!](https://codesandbox.io/s/react-use-presentation-1c2du) | [Preview with BG video!](https://codesandbox.io/s/react-use-presentation-with-bg-d7f7j) |
+
+> You may also find a running [example](./example) in this project which are served at [Github Pages](https://olavoparno.github.io/react-use-presentation).
 
 ---
 
@@ -193,6 +196,7 @@ import { myFramesArray1 } from './myFramesArray';
 
 export default function App() {
   const [startTrigger, setStartTrigger] = React.useState(false);
+
   const [PresentationTriggered] = usePresentation({
     framesOptions: myFramesArray1,
     startTrigger,
@@ -249,6 +253,50 @@ const [
   totalLengthLittle,
 ] = usePresentation();
 ```
+
+`CSS selectors`:
+
+- Both frames with or without children have its own CSS selectors:
+
+1. Without children: `className="animation-frame"`
+2. With children: `className="animation-frame with-children"`
+
+- You can also pass in your own className:
+
+1. With or without children:
+
+```tsx
+const [PresentationCustomCss] = usePresentation({
+  framesOptions: myFramesArray1,
+  startTrigger: true,
+});
+
+return <PresentationCustomCss className="my-custom-class" />;
+```
+
+- **The default behaviour is to automatically merge classNames.**
+
+---
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://olavoparno.github.io"><img src="https://avatars1.githubusercontent.com/u/7513162?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Olavo Parno</b></sub></a><br /><a href="#ideas-olavoparno" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/olavoparno/react-use-presentation/commits?author=olavoparno" title="Code">💻</a> <a href="https://github.com/olavoparno/react-use-presentation/commits?author=olavoparno" title="Tests">⚠️</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ---
 
