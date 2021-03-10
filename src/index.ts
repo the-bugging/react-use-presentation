@@ -1,6 +1,6 @@
 import {
+  JSXElementConstructor,
   cloneElement,
-  Component,
   ReactElement,
   useCallback,
   useEffect,
@@ -10,12 +10,12 @@ import {
 } from 'react';
 
 type TFrameOptions = {
-  component: ReactElement | null;
+  component: ReactElement<any, string | JSXElementConstructor<any>> | null;
   time?: number;
 };
 
 type TFrameOptionsWithPosition = {
-  component: ReactElement | null;
+  component: ReactElement<any, string | JSXElementConstructor<any>> | null;
   time?: number;
   currentFrame: number;
 };
@@ -28,13 +28,21 @@ type TUsePresentation = {
   callback?: () => void;
 };
 
+type TUsePresentationReturn = readonly [
+  ({
+    children,
+  }: any) => ReactElement<any, string | JSXElementConstructor<any>> | null,
+  number,
+  number
+];
+
 function usePresentation({
   framesOptions,
-  startTrigger = false,
+  startTrigger,
   startDelay = undefined,
   isLoop = false,
   callback = undefined,
-}: TUsePresentation): (number | Component)[] {
+}: TUsePresentation): TUsePresentationReturn {
   const [
     CurrentFrameOptions,
     setCurrentFrameOptions,
@@ -43,8 +51,10 @@ function usePresentation({
   const framesRef = useRef(framesOptions);
   const callbackCb = useCallback(() => {
     if (callback && typeof callback === 'function') {
-      callback();
+      return callback();
     }
+
+    return null;
   }, [callback]);
 
   const setFrameWithAwait = useCallback(
@@ -60,11 +70,9 @@ function usePresentation({
         await setFrameWithAwait(otherFrames);
       }
 
-      if (callback) {
-        callbackCb();
-      }
+      callbackCb();
     },
-    [callback, callbackCb]
+    [callbackCb]
   );
 
   const setMotion = useCallback(async () => {
@@ -82,18 +90,34 @@ function usePresentation({
   }, [startDelay, isLoop, setFrameWithAwait]);
 
   useEffect(() => {
-    if (framesQuantity > 0 && startTrigger) setMotion();
+    let mounted = true;
+
+    if (framesQuantity > 0 && startTrigger && mounted) {
+      setMotion();
+    }
+
+    return () => {
+      mounted = false;
+    };
   }, [framesQuantity, startTrigger, setMotion]);
 
   const Animation = useCallback(
-    ({ children }) => {
-      const currentComponent = CurrentFrameOptions?.component || null;
+    ({ children, className }) => {
+      const internalClassName = children
+        ? 'animation-frame with-children'
+        : 'animation-frame';
 
-      if (children) {
-        return currentComponent
-          ? cloneElement(currentComponent, undefined, children)
-          : null;
-      }
+      const currentComponent = CurrentFrameOptions?.component
+        ? cloneElement(
+            CurrentFrameOptions.component,
+            {
+              className: className
+                ? `${internalClassName} ${className}`
+                : internalClassName,
+            },
+            children || CurrentFrameOptions.component
+          )
+        : null;
 
       return currentComponent;
     },
@@ -103,7 +127,7 @@ function usePresentation({
   return useMemo(() => {
     const { currentFrame } = CurrentFrameOptions ?? { currentFrame: 0 };
 
-    return [(Animation as unknown) as Component, currentFrame, framesQuantity];
+    return [Animation, currentFrame, framesQuantity] as const;
   }, [Animation, CurrentFrameOptions, framesQuantity]);
 }
 
