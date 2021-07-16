@@ -43,10 +43,8 @@ function usePresentation({
   isLoop = false,
   callback = undefined,
 }: TUsePresentation): TUsePresentationReturn {
-  const [
-    CurrentFrameOptions,
-    setCurrentFrameOptions,
-  ] = useState<TFrameOptionsWithPosition | null>(null);
+  const [CurrentFrameOptions, setCurrentFrameOptions] =
+    useState<TFrameOptionsWithPosition | null>(null);
   const framesQuantity = framesOptions?.length || 0;
   const framesRef = useRef(framesOptions);
   const callbackCb = useCallback(() => {

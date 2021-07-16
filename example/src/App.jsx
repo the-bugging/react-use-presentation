@@ -10,25 +10,19 @@ export default function App() {
     startTrigger: true,
   });
 
-  const [
-    AnimateLoop,
-    currentPositionLoop,
-    framesQuantityLoop,
-  ] = usePresentation({
-    framesOptions: framesInLoop,
-    isLoop: false,
-    startTrigger: true,
-  });
+  const [AnimateLoop, currentPositionLoop, framesQuantityLoop] =
+    usePresentation({
+      framesOptions: framesInLoop,
+      isLoop: false,
+      startTrigger: true,
+    });
 
-  const [
-    FranticLoop,
-    currentPositionFrantic,
-    framesQuantityFrantic,
-  ] = usePresentation({
-    framesOptions: framesFrantic,
-    isLoop: false,
-    startTrigger: true,
-  });
+  const [FranticLoop, currentPositionFrantic, framesQuantityFrantic] =
+    usePresentation({
+      framesOptions: framesFrantic,
+      isLoop: false,
+      startTrigger: true,
+    });
 
   return (
     <div className="App">
