@@ -2,3 +2,6 @@
 *.html linguist-detectable=false
 *.shell linguist-detectable=false
 *.css linguist-detectable=false
+example/src/frames.jsx linguist-generated=true
+example/src/App.jsx linguist-generated=true
+example/src/index.jsx linguist-generated=true
