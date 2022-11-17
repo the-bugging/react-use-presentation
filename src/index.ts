@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   JSXElementConstructor,
   cloneElement,
@@ -58,7 +59,7 @@ function usePresentation({
   const setFrameWithAwait = useCallback(
     async (framesArray: Array<TFrameOptions>) => {
       const [firstFrame, ...otherFrames] = framesArray;
-      const currentFrame = framesRef.current?.indexOf(firstFrame) + 1;
+      const currentFrame = (framesRef.current?.indexOf(firstFrame) || 0) + 1;
 
       setCurrentFrameOptions({ ...firstFrame, currentFrame });
 

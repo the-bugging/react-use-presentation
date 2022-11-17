@@ -22,8 +22,8 @@
     "dist/"
   ],
   "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --fix src/**/*.{js,jsx,ts,tsx}"
+    "*.{ts,tsx}": [
+      "eslint --fix src/**/*.{ts,tsx}"
     ]
   },
   "scripts": {
@@ -35,8 +35,8 @@
     "prepare": "husky install && npm run build",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
-    "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
-    "lint": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
+    "format": "prettier --write src/**/*.{ts,tsx}",
+    "lint": "eslint --fix src/**/*.{ts,tsx}",
     "release": "standard-version",
     "make-badges": "istanbul-badges-readme"
   },
@@ -47,7 +47,7 @@
     ]
   },
   "peerDependencies": {
-    "react": "^17.0.1"
+    "react": "^17.0.2 || ^18"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
