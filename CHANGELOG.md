@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/olavoparno/react-use-presentation/compare/v1.4.1...v1.4.2) (2022-11-17)
+
+
+### Bug Fixes
+
+* upgrade @material-ui/core from 4.12.1 to 4.12.3 ([49f83b4](https://github.com/olavoparno/react-use-presentation/commit/49f83b40a52ce107d034ed40a3e40385a15dd34d))
+
 ### [1.4.1](https://github.com/olavoparno/react-use-presentation/compare/v1.4.0...v1.4.1) (2021-03-10)
 
 ## [1.4.0](https://github.com/olavoparno/react-use-presentation/compare/v1.3.1...v1.4.0) (2021-03-10)
