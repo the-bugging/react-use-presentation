@@ -8,9 +8,9 @@
 
 ---
 
-| Statements                                                                  | Branches                                                                  | Functions                                                                  | Lines                                                                  |
-| --------------------------------------------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| ![Statements](https://img.shields.io/badge/statements-100%25-brightgreen.svg) | ![Branches](https://img.shields.io/badge/branches-100%25-brightgreen.svg) | ![Functions](https://img.shields.io/badge/functions-100%25-brightgreen.svg) | ![Lines](https://img.shields.io/badge/lines-100%25-brightgreen.svg) |
+| Statements                                                                    | Branches                                                                  | Functions                                                                   | Lines                                                               |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| ![Statements](https://img.shields.io/badge/statements-100%25-brightgreen.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-100%25-brightgreen.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-100%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-100%25-brightgreen.svg?style=flat) |
 
 ## Table of Contents
 
@@ -138,16 +138,13 @@ export default function App() {
     startTrigger: true,
     startDelay: 1000,
   });
-  const [
-    DelayedAndLoopedPresentation,
-    currentLoopFrame,
-    loopFramesLength,
-  ] = usePresentation({
-    framesOptions: myFramesArray3,
-    startTrigger: true,
-    startDelay: 1000,
-    isLoop: true,
-  });
+  const [DelayedAndLoopedPresentation, currentLoopFrame, loopFramesLength] =
+    usePresentation({
+      framesOptions: myFramesArray3,
+      startTrigger: true,
+      startDelay: 1000,
+      isLoop: true,
+    });
 
   return (
     <>
@@ -172,14 +169,11 @@ import usePresentation from 'react-use-presentation';
 import { myFramesArray1 } from './myFramesArray';
 
 export default function App() {
-  const [
-    PresentationWithChildren,
-    currentFrame,
-    framesLength,
-  ] = usePresentation({
-    framesOptions: myFramesArray1,
-    startTrigger: true,
-  });
+  const [PresentationWithChildren, currentFrame, framesLength] =
+    usePresentation({
+      framesOptions: myFramesArray1,
+      startTrigger: true,
+    });
 
   return (
     <PresentationWithChildren>
@@ -251,11 +245,8 @@ usePresentation(TUsePresentation);
 > As the return is an array you may name each array position in an arbitrary way, e.g.:
 
 ```tsx
-const [
-  MyLittleComponent,
-  currentFrameLittle,
-  totalLengthLittle,
-] = usePresentation();
+const [MyLittleComponent, currentFrameLittle, totalLengthLittle] =
+  usePresentation();
 ```
 
 `CSS selectors`:
@@ -291,7 +282,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://olavoparno.github.io"><img src="https://avatars1.githubusercontent.com/u/7513162?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Olavo Parno</b></sub></a><br /><a href="#ideas-olavoparno" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/olavoparno/react-use-presentation/commits?author=olavoparno" title="Code">💻</a> <a href="https://github.com/olavoparno/react-use-presentation/commits?author=olavoparno" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://olavoparno.github.io"><img src="https://avatars1.githubusercontent.com/u/7513162?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Olavo Parno</b></sub></a><br /><a href="#ideas-olavoparno" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/the-bugging/react-use-presentation/commits?author=olavoparno" title="Code">💻</a> <a href="https://github.com/the-bugging/react-use-presentation/commits?author=olavoparno" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
