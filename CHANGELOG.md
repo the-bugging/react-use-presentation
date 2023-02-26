@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/the-bugging/react-use-presentation/compare/v1.4.2...v1.4.3) (2023-02-26)
+
+
+### Bug Fixes
+
+* upgrade @material-ui/core from 4.12.3 to 4.12.4 ([f212661](https://github.com/the-bugging/react-use-presentation/commit/f21266197e81f0f2c5a30a13afbddd5ee04931c2))
+
 ### [1.4.2](https://github.com/the-bugging/react-use-presentation/compare/v1.4.1...v1.4.2) (2022-11-17)
 
 ### Bug Fixes
