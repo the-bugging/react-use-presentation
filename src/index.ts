@@ -10,26 +10,26 @@ import {
   useState,
 } from 'react';
 
-type TFrameOptions = {
-  component: ReactElement<any, string | JSXElementConstructor<any>> | null;
+type FrameOptions = {
+  component: ReactElement;
   time?: number;
 };
 
-type TFrameOptionsWithPosition = {
-  component: ReactElement<any, string | JSXElementConstructor<any>> | null;
+type FrameOptionsWithPosition = {
+  component: ReactElement;
   time?: number;
   currentFrame: number;
 };
 
-type TUsePresentation = {
-  framesOptions: TFrameOptions[];
+type UsePresentation = {
+  framesOptions: FrameOptions[];
   startTrigger: boolean;
   startDelay?: number;
   isLoop?: boolean;
   callback?: () => void;
 };
 
-type TUsePresentationReturn = readonly [
+type UsePresentationReturn = readonly [
   ({
     children,
   }: any) => ReactElement<any, string | JSXElementConstructor<any>> | null,
@@ -43,9 +43,9 @@ function usePresentation({
   startDelay = undefined,
   isLoop = false,
   callback = undefined,
-}: TUsePresentation): TUsePresentationReturn {
+}: UsePresentation): UsePresentationReturn {
   const [CurrentFrameOptions, setCurrentFrameOptions] =
-    useState<TFrameOptionsWithPosition | null>(null);
+    useState<FrameOptionsWithPosition | null>(null);
   const framesQuantity = framesOptions?.length || 0;
   const framesRef = useRef(framesOptions);
   const animationFrameIdRef = useRef<number | null>(null);
@@ -59,11 +59,14 @@ function usePresentation({
   }, [callback]);
 
   const setFrameWithAwait = useCallback(
-    async (framesArray: Array<TFrameOptions>): Promise<void> => { // Ensure it returns Promise<void>
+    async (framesArray: Array<FrameOptions>): Promise<void> => {
+      // Ensure it returns Promise<void>
       if (isCancelledRef.current) return;
 
       const [firstFrame, ...otherFrames] = framesArray;
-      const frameIndex = framesRef.current ? framesRef.current.indexOf(firstFrame) : -1;
+      const frameIndex = framesRef.current
+        ? framesRef.current.indexOf(firstFrame)
+        : -1;
       const currentFrame = frameIndex >= 0 ? frameIndex + 1 : 0;
 
       if (isCancelledRef.current) return;
@@ -143,8 +146,8 @@ function usePresentation({
       // Ensure any previous rAF is cleared before starting a new motion if setMotion itself doesn't handle it.
       // This is important if startTrigger rapidly toggles.
       if (animationFrameIdRef.current !== null) {
-          cancelAnimationFrame(animationFrameIdRef.current);
-          animationFrameIdRef.current = null;
+        cancelAnimationFrame(animationFrameIdRef.current);
+        animationFrameIdRef.current = null;
       }
       setMotion();
     } else {
@@ -167,21 +170,36 @@ function usePresentation({
   }, [framesQuantity, startTrigger, setMotion]); // setMotion's stability is important here.
 
   const Animation = useCallback(
-    ({ children, className }) => {
+    ({
+      children,
+      className,
+    }: {
+      children: ReactElement;
+      className: string;
+    }) => {
       const internalClassName = children
         ? 'animation-frame with-children'
         : 'animation-frame';
 
       const currentComponent = CurrentFrameOptions?.component
-        ? cloneElement(
-            CurrentFrameOptions.component,
-            {
+        ? (() => {
+            const element = CurrentFrameOptions.component;
+            const props =
+              typeof element.props === 'object' && element.props !== null
+                ? element.props
+                : {};
+            const newProps = {
+              ...props,
               className: className
                 ? `${internalClassName} ${className}`
                 : internalClassName,
-            },
-            children || CurrentFrameOptions.component
-          )
+            };
+            return cloneElement(
+              element as ReactElement,
+              newProps,
+              children || element
+            );
+          })()
         : null;
 
       return currentComponent;
@@ -196,5 +214,5 @@ function usePresentation({
   }, [Animation, CurrentFrameOptions, framesQuantity]);
 }
 
-export type { TFrameOptions };
+export type { FrameOptions };
 export default usePresentation;
