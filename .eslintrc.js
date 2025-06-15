@@ -26,6 +26,7 @@ module.exports = {
       },
     },
   },
+  ignorePatterns: ['example/**/*'],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
@@ -36,6 +37,23 @@ module.exports = {
     'import/extensions': ['error', 'never'],
     'import/prefer-default-export': 'off',
     'import/no-unresolved': ['error', { ignore: ['react-hooks-fetch'] }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          '**/*.test.ts',
+          '**/*.test.tsx',
+          '**/__tests__/**',
+          '**/test/**',
+          '**/tests/**',
+          '**/jest.config.js',
+          '**/jest.setup.js',
+          '**/test-utils/**',
+          '**/testing-library/**',
+          '@testing-library/**',
+        ],
+      },
+    ],
     camelcase: [
       'error',
       {
